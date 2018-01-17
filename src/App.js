@@ -1,21 +1,54 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import Fetcher from './Fetcher.js'
+import Autocomplete from 'react-autocomplete'
 
-class App extends Component {
-  render() {
+// import styled from 'styled-components'
+
+export default class App extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      players: null,
+      loadedPlayerData: false,
+      value: ''
+    }
+  }
+
+  addPlayerDataToState = (playerData) => {
+    this.setState({ players: playerData, loadedPlayerData: true })
+    console.log(playerData)
+  }
+
+  render () {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <Fetcher
+          addPlayerDataToState={this.addPlayerDataToState}
+        />
+        <Autocomplete
+          getItemValue={(item) => item.name}
+          items={this.state.players}
+          shouldItemRender={(player, value) => {
+            return (player.name.toLowerCase().indexOf(value.toLowerCase()) !== -1)
+          }}
+          renderItem={(item, isHighlighted) =>
+            <div
+              style={{ background: isHighlighted ? 'lightgray' : 'white' }}
+              key={item.id}
+            >
+              {item.name}
+            </div>
+          }
+          renderMenu={children => (
+            <div>
+              {children}
+            </div>
+          )}
+          value={this.state.value}
+          onChange={(e) => this.setState({value: e.target.value})}
+          onSelect={(value) => this.setState({value})}
+        />
       </div>
-    );
+    )
   }
 }
-
-export default App;
