@@ -36,7 +36,7 @@ export default class App extends Component {
               style={{ background: isHighlighted ? 'lightgray' : 'white' }}
               key={item.id}
             >
-              {item.name}
+              {item.name + ' -- ' + item.country_code}
             </div>
           }
           renderMenu={children => (
