@@ -10,6 +10,16 @@ const FormLabel = styled.p`
   font-size: 12px;
 `
 
+const SuccessText = styled.p`
+  color: green;
+  size: 15px;
+`
+
+const FailureText = styled.p`
+  color: red;
+  size: 15px;
+`
+
 export default class App extends Component {
   constructor (props) {
     super(props)
@@ -23,21 +33,25 @@ export default class App extends Component {
 
       manager_name:'',
       matchweek: null,
-      gk: '',
-      gk_sub: '',
-      d_one: '',
-      d_two: '',
-      d_three: '',
-      d_four: '',
-      d_sub: '',
-      m_one: '',
-      m_two: '',
-      m_three: '',
-      m_sub: '',
-      f_one: '',
-      f_two: '',
-      f_three: '',
-      f_sub: '',
+      gk: 'Taylor, Stuart',
+      gk_sub: 'Weidenfeller, Roman',
+      d_one: 'Polanski, Eugen',
+      d_two: 'Starke, Tom',
+      d_three: 'Adler, Rene',
+      d_four: 'Callsen-Bracker, Jan-Ingwer',
+      d_sub: 'Heimeroth, Christofer',
+      m_one: 'Castro, Gonzalo',
+      m_two: 'Pizarro, Claudio',
+      m_three: 'Tschauner, Philipp',
+      m_sub: 'Mertesacker, Per',
+      f_one: 'Salihovic, Sejad',
+      f_two: 'Benaglio, Diego',
+      f_three: 'Riether, Sascha',
+      f_sub: 'Aogo, Dennis',
+
+      submitText: '',
+      submitSuccess: false,
+      submitFailure: false
     }
   }
 
@@ -62,6 +76,56 @@ export default class App extends Component {
     this.setState({matchweek: event.target.value})
   }
 
+  // handle submit button click
+  handleSubmit = (event) => {
+    const state = this.state
+    fetch('http://127.0.0.1:8000/api/rosters/', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({
+        manager_name: state.manager_name,
+        week: state.matchweek,
+        gk: this.getPlayerIdFromName(state.gk),
+        gk_sub: this.getPlayerIdFromName(state.gk_sub),
+        d_one: this.getPlayerIdFromName(state.d_one),
+        d_two: this.getPlayerIdFromName(state.d_two),
+        d_three: this.getPlayerIdFromName(state.d_three),
+        d_four: this.getPlayerIdFromName(state.d_four),
+        d_sub: this.getPlayerIdFromName(state.d_sub),
+        m_one: this.getPlayerIdFromName(state.m_one),
+        m_two: this.getPlayerIdFromName(state.m_two),
+        m_three: this.getPlayerIdFromName(state.m_three),
+        m_sub: this.getPlayerIdFromName(state.m_sub),
+        f_one: this.getPlayerIdFromName(state.f_one),
+        f_two: this.getPlayerIdFromName(state.f_two),
+        f_three: this.getPlayerIdFromName(state.f_three),
+        f_sub: this.getPlayerIdFromName(state.f_sub),
+      })
+    })
+    .then((response) => {
+      if (response.ok) {
+        this.setState({submitSuccess: true, submitFailure: false})
+      } else {
+        this.setState({submitSuccess: false, submitFailure: true})
+      }
+    })
+  }
+
+  // given a player name, return a player id
+  getPlayerIdFromName = (name) => {
+    const player = this.state.players.find((item) => {
+      return item.name == name
+    })
+    if (player) {
+      return player.id
+    } else {
+      return -1
+    }
+  }
+
   render () {
     return (
       <div>
@@ -84,13 +148,14 @@ export default class App extends Component {
             value={this.state.matchweek}
             onChange={this.handleSelectChange}
           >
-          {this.state.matchweeks.map((item,key) => {
-            return (<option
-              key={item.id}
-              value={item.id}>
-              Week {item.week_number}: {item.start_date} to {item.end_date}
-            </option>)
-          })}
+            <option value='weeks'>Weeks:</option>
+            {this.state.matchweeks.map((item,key) => {
+              return (<option
+                key={item.id}
+                value={item.id}>
+                Week {item.week_number}: {item.start_date} to {item.end_date}
+              </option>)
+            })}
           </select>
           <FormLabel>Goalkeeper</FormLabel>
           <AutoPlayerField
@@ -198,6 +263,10 @@ export default class App extends Component {
             position='f_sub'
           />
         </div>
+        <button onClick={this.handleSubmit}>Submit</button>
+        {this.state.submitSuccess && <SuccessText>SUCCESS!</SuccessText>}
+        {this.state.submitFailure && <FailureText>Something went wrong.
+          Check that your lineup is correct.</FailureText>}
       </div>
     )
   }

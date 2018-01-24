@@ -10,7 +10,6 @@ export default class Fetcher extends Component {
     })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson)
       this.props.addFetchedDataToState(this.props.field, responseJson)
     })
   }

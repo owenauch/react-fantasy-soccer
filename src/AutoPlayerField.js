@@ -28,7 +28,9 @@ export default class AutoPlayerField extends Component {
           </div>
         )}
         value={this.props.value}
-        onChange={(e) => this.props.updateValue(this.props.position,e.target.value)}
+        onChange={(e) => {
+          this.props.updateValue(this.props.position,e.target.value)}
+        }
         onSelect={(value) => this.props.updateValue(this.props.position,value)}
       />
     )
