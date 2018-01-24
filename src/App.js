@@ -15,7 +15,6 @@ export default class App extends Component {
     super(props)
     this.state = {
       players: null,
-      loadedPlayerData: false,
       gk: '',
       gk_sub: '',
       d_one: '',
@@ -35,7 +34,7 @@ export default class App extends Component {
   }
 
   addPlayerDataToState = (playerData) => {
-    this.setState({ players: playerData, loadedPlayerData: true })
+    this.setState({ players: playerData })
   }
 
   // given a position and a value, updates state of that position
