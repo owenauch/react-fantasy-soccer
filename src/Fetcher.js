@@ -15,8 +15,6 @@ export default class Fetcher extends Component {
   }
 
   render () {
-    return (
-      <div />
-    )
+    return null
   }
 }
