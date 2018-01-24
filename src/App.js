@@ -14,10 +14,15 @@ export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      players: null,
-      matchweeks: null,
-      dataLoaded: false,
+      players: [{
+        "id": 1,
+        "name": "Owen Auch",
+        "country_code": "Banter Legend",
+      }],
+      matchweeks: [],
 
+      manager_name:'',
+      matchweek: null,
       gk: '',
       gk_sub: '',
       d_one: '',
@@ -37,13 +42,23 @@ export default class App extends Component {
   }
 
   addFetchedDataToState = (field, data) => {
-    this.setState({[field]: data, dataLoaded: true})
+    this.setState({[field]: data})
   }
 
-  // given a position and a value, updates state of that position
-  // with player's name
-  updateValue = (position, value) => {
-    this.setState({[position]: value})
+  // given a field and a value, updates state of that field
+  // with the value
+  updateValue = (field, value) => {
+    this.setState({[field]: value})
+  }
+
+  // update state when manager name changes
+  handleTextChange = (event) => {
+    this.setState({manager_name: event.target.value})
+  }
+
+  // update state when select changes
+  handleSelectChange = (event) => {
+    this.setState({matchweek: event.target.value})
   }
 
   render () {
@@ -60,7 +75,23 @@ export default class App extends Component {
           field='matchweeks'
         />
         <div>
-          {this.state.dataLoaded && <FormLabel>Goalkeeper</FormLabel>
+          <FormLabel>Manager Name</FormLabel>
+          <input type="text" value={this.state.manager_name} onChange={this.handleTextChange} />
+          <FormLabel>Matchweek</FormLabel>
+          <select
+            name='matchweek'
+            value={this.state.matchweek}
+            onChange={this.handleSelectChange}
+          >
+          {this.state.matchweeks.map((item,key) => {
+            return (<option
+              key={item.id}
+              value={item.id}>
+              Week {item.week_number}: {item.start_date} to {item.end_date}
+            </option>)
+          })}
+          </select>
+          <FormLabel>Goalkeeper</FormLabel>
           <AutoPlayerField
             players={this.state.players}
             value={this.state.gk}
@@ -164,7 +195,7 @@ export default class App extends Component {
             value={this.state.f_sub}
             updateValue={this.updateValue}
             position='f_sub'
-          />}
+          />
         </div>
       </div>
     )
