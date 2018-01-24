@@ -15,7 +15,9 @@ export default class App extends Component {
     super(props)
     this.state = {
       players: null,
-      loadedPlayerData: false,
+      matchweeks: null,
+      dataLoaded: false,
+
       gk: '',
       gk_sub: '',
       d_one: '',
@@ -34,8 +36,8 @@ export default class App extends Component {
     }
   }
 
-  addPlayerDataToState = (playerData) => {
-    this.setState({ players: playerData, loadedPlayerData: true })
+  addFetchedDataToState = (field, data) => {
+    this.setState({[field]: data, dataLoaded: true})
   }
 
   // given a position and a value, updates state of that position
@@ -48,113 +50,122 @@ export default class App extends Component {
     return (
       <div>
         <Fetcher
-          addPlayerDataToState={this.addPlayerDataToState}
+          addFetchedDataToState={this.addFetchedDataToState}
+          url='http://127.0.0.1:8000/api/players/'
+          field='players'
         />
-        <FormLabel>Goalkeeper</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.gk}
-          updateValue={this.updateValue}
-          position='gk'
+        <Fetcher
+          addFetchedDataToState={this.addFetchedDataToState}
+          url='http://127.0.0.1:8000/api/matchweeks/'
+          field='matchweeks'
         />
-        <FormLabel>Goalkeeper Substitute</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.gk_sub}
-          updateValue={this.updateValue}
-          position='gk_sub'
-        />
-        <FormLabel>Defender</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.d_one}
-          updateValue={this.updateValue}
-          position='d_one'
-        />
-        <FormLabel>Defender</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.d_two}
-          updateValue={this.updateValue}
-          position='d_two'
-        />
-        <FormLabel>Defender</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.d_three}
-          updateValue={this.updateValue}
-          position='d_three'
-        />
-        <FormLabel>Defender</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.d_four}
-          updateValue={this.updateValue}
-          position='d_four'
-        />
-        <FormLabel>Defender Substitute</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.d_sub}
-          updateValue={this.updateValue}
-          position='d_sub'
-        />
-        <FormLabel>Midfielder</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.m_one}
-          updateValue={this.updateValue}
-          position='m_one'
-        />
-        <FormLabel>Midfielder</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.m_two}
-          updateValue={this.updateValue}
-          position='m_two'
-        />
-        <FormLabel>Midfielder</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.m_three}
-          updateValue={this.updateValue}
-          position='m_three'
-        />
-        <FormLabel>Midfielder Substitute</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.m_sub}
-          updateValue={this.updateValue}
-          position='m_sub'
-        />
-        <FormLabel>Forward</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.f_one}
-          updateValue={this.updateValue}
-          position='f_one'
-        />
-        <FormLabel>Forward</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.f_two}
-          updateValue={this.updateValue}
-          position='f_two'
-        />
-        <FormLabel>Forward</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.f_three}
-          updateValue={this.updateValue}
-          position='f_three'
-        />
-        <FormLabel>Forward Substitute</FormLabel>
-        <AutoPlayerField
-          players={this.state.players}
-          value={this.state.f_sub}
-          updateValue={this.updateValue}
-          position='f_sub'
-        />
+        <div>
+          {this.state.dataLoaded && <FormLabel>Goalkeeper</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.gk}
+            updateValue={this.updateValue}
+            position='gk'
+          />
+          <FormLabel>Goalkeeper Substitute</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.gk_sub}
+            updateValue={this.updateValue}
+            position='gk_sub'
+          />
+          <FormLabel>Defender</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.d_one}
+            updateValue={this.updateValue}
+            position='d_one'
+          />
+          <FormLabel>Defender</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.d_two}
+            updateValue={this.updateValue}
+            position='d_two'
+          />
+          <FormLabel>Defender</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.d_three}
+            updateValue={this.updateValue}
+            position='d_three'
+          />
+          <FormLabel>Defender</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.d_four}
+            updateValue={this.updateValue}
+            position='d_four'
+          />
+          <FormLabel>Defender Substitute</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.d_sub}
+            updateValue={this.updateValue}
+            position='d_sub'
+          />
+          <FormLabel>Midfielder</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.m_one}
+            updateValue={this.updateValue}
+            position='m_one'
+          />
+          <FormLabel>Midfielder</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.m_two}
+            updateValue={this.updateValue}
+            position='m_two'
+          />
+          <FormLabel>Midfielder</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.m_three}
+            updateValue={this.updateValue}
+            position='m_three'
+          />
+          <FormLabel>Midfielder Substitute</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.m_sub}
+            updateValue={this.updateValue}
+            position='m_sub'
+          />
+          <FormLabel>Forward</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.f_one}
+            updateValue={this.updateValue}
+            position='f_one'
+          />
+          <FormLabel>Forward</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.f_two}
+            updateValue={this.updateValue}
+            position='f_two'
+          />
+          <FormLabel>Forward</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.f_three}
+            updateValue={this.updateValue}
+            position='f_three'
+          />
+          <FormLabel>Forward Substitute</FormLabel>
+          <AutoPlayerField
+            players={this.state.players}
+            value={this.state.f_sub}
+            updateValue={this.updateValue}
+            position='f_sub'
+          />}
+        </div>
       </div>
     )
   }
