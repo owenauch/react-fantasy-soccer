@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import Autocomplete from 'react-autocomplete'
+import styled from 'styled-components'
+
 import Fetcher from './Fetcher.js'
 import AutoPlayerField from './AutoPlayerField.js'
-import Autocomplete from 'react-autocomplete'
-
-import styled from 'styled-components'
+import WeekSelector from './WeekSelector.js'
 
 const FormLabel = styled.p`
   color: blue;
@@ -143,20 +144,11 @@ export default class LineupSubmission extends Component {
           <FormLabel>Manager Name</FormLabel>
           <input type="text" value={this.state.manager_name} onChange={this.handleTextChange} />
           <FormLabel>Matchweek</FormLabel>
-          <select
-            name='matchweek'
-            value={this.state.matchweek}
-            onChange={this.handleSelectChange}
-          >
-            <option value='weeks'>Weeks:</option>
-            {this.state.matchweeks.map((item,key) => {
-              return (<option
-                key={item.id}
-                value={item.id}>
-                Week {item.week_number}: {item.start_date} to {item.end_date}
-              </option>)
-            })}
-          </select>
+          <WeekSelector
+            matchweeks={this.state.matchweeks}
+            matchweek={this.state.matchweek}
+            handleSelectChange={this.handleSelectChange}
+          />
           <FormLabel>Goalkeeper</FormLabel>
           <AutoPlayerField
             players={this.state.players}
