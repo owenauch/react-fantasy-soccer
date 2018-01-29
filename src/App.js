@@ -4,6 +4,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import {List, ListItem} from 'material-ui/List'
 
 import LineupSubmission from './LineupSubmission.js'
 import Lineups from './Lineups.js'
@@ -11,10 +12,10 @@ import Lineups from './Lineups.js'
 const App = () => (
   <Router>
     <div>
-      <ul>
-        <li><Link to='/'>Lineups</Link></li>
-        <li><Link to='/submit'>Lineup Submission</Link></li>
-      </ul>
+      <List>
+        <ListItem><Link to='/'>Lineups</Link></ListItem>
+        <ListItem><Link to='/submit'>Lineup Submission</Link></ListItem>
+      </List>
       <hr />
 
       <Route exact path='/' component={Lineups} />
