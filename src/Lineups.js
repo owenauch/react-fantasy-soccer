@@ -44,7 +44,7 @@ export default class Lineups extends Component {
         />
         <Fetcher
           addFetchedDataToState={this.addFetchedDataToState}
-          url='https://dilly-league-backend.herokuapp.com/api/scored_rosters/'
+          url='https://dilly-league-backend.herokuapp.com/api/scored-rosters/'
           field='scored_rosters'
         />
         <WeekSelector
