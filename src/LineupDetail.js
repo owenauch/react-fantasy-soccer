@@ -25,8 +25,6 @@ const LineupDetail = (props) => {
 
   return (
     <OuterDiv>
-      <p><strong>Manager: </strong>{roster.manager_name}</p>
-      <p><strong>Total Points: </strong>{roster.total_points}</p>
       <table>
         <thead>
           <tr>

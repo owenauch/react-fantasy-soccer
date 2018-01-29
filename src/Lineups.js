@@ -36,7 +36,7 @@ export default class Lineups extends Component {
 
   render () {
     // make roster url based on state
-    var roster_url = 'https://dilly-league-backend.herokuapp.com/api/matchweek/'
+    var roster_url = 'http://127.0.0.1:8000/api/matchweek/'
     if (this.state.matchweek) {
       roster_url += this.state.matchweek + '/scored-rosters/'
     }
@@ -45,7 +45,7 @@ export default class Lineups extends Component {
       <div>
         <Fetcher
           addFetchedDataToState={this.addFetchedDataToState}
-          url='https://dilly-league-backend.herokuapp.com/api/matchweeks/'
+          url='http://127.0.0.1:8000/api/matchweeks/'
           field='matchweeks'
         />
         {this.state.matchweek && <Fetcher
@@ -58,17 +58,15 @@ export default class Lineups extends Component {
           matchweek={this.state.matchweek}
           handleSelectChange={this.handleSelectChange}
         />
-        {this.state.current_roster && <LineupDetail
-          rosters={this.state.scored_rosters}
-          current_roster={this.state.current_roster}
-          handleClose={this.handleCloseDetail}
-        />}
         {this.state.scored_rosters.map((item, key) => {
           return (
             <LineupScore
               roster={item}
               key={key}
               handleClick={this.handleLineupClick}
+              rosters={this.state.scored_rosters}
+              current_roster={this.state.current_roster}
+              handleClose={this.handleCloseDetail}
             />
           )
         })}
