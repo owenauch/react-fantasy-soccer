@@ -80,7 +80,7 @@ export default class LineupSubmission extends Component {
   // handle submit button click
   handleSubmit = (event) => {
     const state = this.state
-    fetch('https://dilly-league.herokuapp.com/api/rosters/', {
+    fetch('https://dilly-league-backend.herokuapp.com/api/rosters/', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'

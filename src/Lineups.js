@@ -39,12 +39,12 @@ export default class Lineups extends Component {
       <div>
         <Fetcher
           addFetchedDataToState={this.addFetchedDataToState}
-          url='https://dilly-league.herokuapp.com/api/matchweeks/'
+          url='https://dilly-league-backend.herokuapp.com/api/matchweeks/'
           field='matchweeks'
         />
         <Fetcher
           addFetchedDataToState={this.addFetchedDataToState}
-          url='https://dilly-league.herokuapp.com/api/scored-rosters/'
+          url='https://dilly-league-backend.herokuapp.com/api/scored_rosters/'
           field='scored_rosters'
         />
         <WeekSelector
