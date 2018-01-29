@@ -44,9 +44,8 @@ export default class Lineups extends Component {
         />
         <Fetcher
           addFetchedDataToState={this.addFetchedDataToState}
-          url={roster_url}
+          url='http://127.0.0.1:8000/api/scored-rosters/'
           field='scored_rosters'
-          matchweek={this.state.matchweek}
         />
         <WeekSelector
           matchweeks={this.state.matchweeks}
@@ -54,16 +53,19 @@ export default class Lineups extends Component {
           handleSelectChange={this.handleSelectChange}
         />
         {this.state.scored_rosters.map((item, key) => {
-          return (
-            <LineupScore
+          if (this.state.matchweek == item.matchweek) {
+            return (<LineupScore
               roster={item}
               key={key}
+              matchweek={this.state.matchweek}
               handleClick={this.handleLineupClick}
               rosters={this.state.scored_rosters}
               current_roster={this.state.current_roster}
               handleClose={this.handleCloseDetail}
-            />
-          )
+            />)
+          } else {
+            return null
+          }
         })}
       </div>
     )
