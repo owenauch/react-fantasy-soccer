@@ -41,6 +41,8 @@ export default class Lineups extends Component {
       roster_url += this.state.matchweek + '/scored-rosters/'
     }
 
+    console.log(this.state.scored_rosters)
+
     return (
       <div>
         <Fetcher

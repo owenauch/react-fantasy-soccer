@@ -14,6 +14,7 @@ const TD = styled.td`
 const TH = styled.th`
   border: .5px solid black;
   text-align: center;
+  padding: 1px;
 `
 
 const LineupDetail = (props) => {
@@ -62,7 +63,7 @@ const LineupDetail = (props) => {
                 <TD>{item.yellow_cards}</TD>
                 <TD>{item.yellow_red_cards}</TD>
                 <TD>{item.red_cards}</TD>
-                <TD>{item.saves}</TD>
+                <TD>{item.shots_saved}</TD>
                 <TD>{item.goals_conceded}</TD>
                 <TD>{item.points}</TD>
               </tr>
