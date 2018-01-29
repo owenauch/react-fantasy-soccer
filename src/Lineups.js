@@ -35,6 +35,8 @@ export default class Lineups extends Component {
   }
 
   render () {
+    console.log('matchweeks', this.state.matchweeks)
+    console.log('rosters', this.state.scored_rosters)
     return (
       <div>
         <Fetcher
