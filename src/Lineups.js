@@ -35,12 +35,6 @@ export default class Lineups extends Component {
   }
 
   render () {
-    // make roster url based on state
-    var roster_url = 'http://127.0.0.1:8000/api/matchweek/'
-    if (this.state.matchweek) {
-      roster_url += this.state.matchweek + '/scored-rosters/'
-    }
-
     return (
       <div>
         <Fetcher
@@ -48,11 +42,12 @@ export default class Lineups extends Component {
           url='http://127.0.0.1:8000/api/matchweeks/'
           field='matchweeks'
         />
-        {this.state.matchweek && <Fetcher
+        <Fetcher
           addFetchedDataToState={this.addFetchedDataToState}
           url={roster_url}
           field='scored_rosters'
-        />}
+          matchweek={this.state.matchweek}
+        />
         <WeekSelector
           matchweeks={this.state.matchweeks}
           matchweek={this.state.matchweek}
