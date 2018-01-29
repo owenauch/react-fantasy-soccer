@@ -36,18 +36,16 @@ export default class Lineups extends Component {
 
   render () {
     // make roster url based on state
-    var roster_url = 'http://127.0.0.1:8000/api/matchweek/'
+    var roster_url = 'https://dilly-league-backend.herokuapp.com/api/matchweek/'
     if (this.state.matchweek) {
       roster_url += this.state.matchweek + '/scored-rosters/'
     }
-
-    console.log(this.state.scored_rosters)
 
     return (
       <div>
         <Fetcher
           addFetchedDataToState={this.addFetchedDataToState}
-          url='http://127.0.0.1:8000/api/matchweeks/'
+          url='https://dilly-league-backend.herokuapp.com/api/matchweeks/'
           field='matchweeks'
         />
         {this.state.matchweek && <Fetcher

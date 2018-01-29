@@ -80,7 +80,7 @@ export default class LineupSubmission extends Component {
   // handle submit button click
   handleSubmit = (event) => {
     const state = this.state
-    fetch('http://127.0.0.1:8000/api/rosters/', {
+    fetch('http://https://dilly-league-backend.herokuapp.com/api/rosters/', {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
@@ -132,12 +132,12 @@ export default class LineupSubmission extends Component {
       <div>
         <Fetcher
           addFetchedDataToState={this.addFetchedDataToState}
-          url='http://127.0.0.1:8000/api/players/'
+          url='https://dilly-league-backend.herokuapp.com/api/players/'
           field='players'
         />
         <Fetcher
           addFetchedDataToState={this.addFetchedDataToState}
-          url='http://127.0.0.1:8000/api/matchweeks/'
+          url='https://dilly-league-backend.herokuapp.com/api/matchweeks/'
           field='matchweeks'
         />
         <div>
