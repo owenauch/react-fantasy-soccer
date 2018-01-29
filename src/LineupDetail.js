@@ -71,6 +71,7 @@ const LineupDetail = (props) => {
           })}
         </tbody>
       </table>
+      <button onClick={() => props.handleClose()}>Close</button>
     </OuterDiv>
   )
 }
