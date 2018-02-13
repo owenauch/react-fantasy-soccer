@@ -16,6 +16,7 @@ export default class Lineups extends Component {
     }
   }
 
+  // updates state with fetched data
   addFetchedDataToState = (field, data) => {
     this.setState({[field]: data})
   }
